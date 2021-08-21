@@ -1,7 +1,10 @@
 import logo from './logo.svg';
 import './App.css';
+import { MOCK_DATA } from './constants/mock';
+import { assignNextRoundPairings } from './utils/pairing';
 
 function App() {
+  console.log(assignNextRoundPairings(MOCK_DATA.players))
   return (
     <div className="App">
       <header className="App-header">
