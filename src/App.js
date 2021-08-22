@@ -1,21 +1,25 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import { START_TOURNAMENT, TOURNAMENT } from './constants/urls';
+import { Provider } from 'react-redux'
 
+import store from './store';
+import { START_TOURNAMENT, TOURNAMENT } from './constants/urls';
 import { StartTournament, Tournament } from './pages';
 
 function App() {
   return (
-    <BrowserRouter>
-      <Switch>
-        <Route path={START_TOURNAMENT}>
-          <StartTournament />
-        </Route>
-        <Route path={TOURNAMENT}>
-          <Tournament />
-        </Route>
-      </Switch>
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+        <Switch>
+          <Route path={START_TOURNAMENT}>
+            <StartTournament />
+          </Route>
+          <Route path={TOURNAMENT}>
+            <Tournament />
+          </Route>
+        </Switch>
+      </BrowserRouter>
+    </Provider>
   );
 }
 

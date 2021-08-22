@@ -6,7 +6,11 @@ import { Button } from '@material-ui/core';
 import { PlayerImport, PlayerList } from '../../components/StartTournament';
 import { TOURNAMENT } from '../../constants/urls';
 
+import { useDispatch } from 'react-redux';
+import { loadPlayers } from '../Tournament/tournamentSlice';
+
 const StartTournament = () => {
+  const dispatch = useDispatch();
   const [players, setPlayers] = useState([]);
 
   const addPlayer = (playerName) => {
@@ -26,7 +30,13 @@ const StartTournament = () => {
     <div>
       <PlayerImport addPlayer={addPlayer} />
       <PlayerList {...{ players, removePlayer }} />
-      <Button variant="contained" color="primary" component={Link} to={TOURNAMENT} >
+      <Button
+        variant="contained"
+        color="primary"
+        component={Link}
+        to={TOURNAMENT}
+        onClick={() => dispatch(loadPlayers(players))}
+      >
         Start Tournament
       </Button>
     </div>
