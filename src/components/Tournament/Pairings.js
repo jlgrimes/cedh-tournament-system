@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useSelector, useDispatch } from 'react-redux';
-import { Button, Select, MenuItem, Paper, Grid, List, ListItem, ListItemText, ListItemSecondaryAction, Typography } from '@material-ui/core';
+import { Tooltip, Button, Select, MenuItem, Paper, Grid, List, ListItem, ListItemText, ListItemSecondaryAction, Typography } from '@material-ui/core';
 
 import { nextRound } from '../../pages/Tournament/tournamentSlice';
 import { POINT_VALUES } from '../../constants/pairings';
@@ -12,9 +12,44 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
+const NextRoundButton = ({ currentRoundPoints }) => {
+  const dispatch = useDispatch();
+  const numberOfPlayers = useSelector(({ tournament }) => tournament.players.length)
+
+  const notAllPointsSet = () => {
+    return Object.keys(currentRoundPoints).length !== numberOfPlayers;
+  };
+
+  if (notAllPointsSet()) {
+    return (
+      <Tooltip title="Please assign points for every player before moving on">
+        <span>
+          <Button
+            variant="contained"
+            color="primary"
+            disabled
+          >
+            Next Round
+          </Button>
+        </span>
+      </Tooltip>
+    )
+  }
+
+
+  return (
+    <Button
+      variant="contained"
+      color="primary"
+      onClick={() => dispatch(nextRound(currentRoundPoints))}
+    >
+      Next Round
+    </Button>
+  )
+}
+
 const Pairings = () => {
   const classes = useStyles();
-  const dispatch = useDispatch();
 
   const currentPairings = useSelector(({ tournament }) => tournament.pairings[tournament.round]);
   const currentRound = useSelector(({ tournament }) => tournament.round);
@@ -62,13 +97,7 @@ const Pairings = () => {
           </Grid>
         ))}
       </Grid>
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={() => dispatch(nextRound(currentRoundPoints))}
-      >
-        Next Round
-      </Button>
+      <NextRoundButton currentRoundPoints={currentRoundPoints} />
     </div>
 
   )
