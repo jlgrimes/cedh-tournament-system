@@ -11,6 +11,7 @@ export const tournamentSlice = createSlice({
   reducers: {
     startTournament: (state, action) => {
       state.round = 1;
+      state.players = action.payload;
       state.pairings[1] = getPairings(action.payload);
     },
     loadPlayers: (state, action) => {
