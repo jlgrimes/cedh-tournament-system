@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { getPairings } from '../../utils/pairing';
+import { getPairings, updatePlayerRoundData } from '../../utils/pairing';
 
 export const tournamentSlice = createSlice({
   name: 'tournament',
@@ -17,10 +17,13 @@ export const tournamentSlice = createSlice({
     loadPlayers: (state, action) => {
       state.players = action.payload;
     },
-    nextRound: (state) => {
+    nextRound: (state, action) => {
+      // Update players with the round results
+      state.players = updatePlayerRoundData(state.players, action.payload, state.round);
+      // Increment round number by 1
       state.round += 1;
+      // Generates the next round pairings
       state.pairings[state.round] = getPairings(state.players);
-      // Insert real next round logic here
     },
   },
 })
