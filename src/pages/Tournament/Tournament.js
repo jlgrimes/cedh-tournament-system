@@ -1,13 +1,20 @@
 import React from 'react';
-import { useSelector } from 'react-redux'
+import { useSelector } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+
+import { Pairings } from '../../components/Tournament';
+import { NEW_TOURNAMENT } from '../../constants/urls';
 
 const Tournament = () => {
-  const pairings = useSelector((state) => state.tournament.pairings);
+  const currentRound = useSelector((state) => state.tournament.round);
 
-  console.log(pairings);
+  if (currentRound === 0) {
+    return <Redirect to={NEW_TOURNAMENT} />;
+  }
+
   return (
     <div>
-      i am a tournament
+      <Pairings />
     </div>
   );
 }

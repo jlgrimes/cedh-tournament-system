@@ -3,7 +3,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { Provider } from 'react-redux'
 
 import store from './store';
-import { START_TOURNAMENT, TOURNAMENT } from './constants/urls';
+import { NEW_TOURNAMENT, TOURNAMENT } from './constants/urls';
 import { StartTournament, Tournament } from './pages';
 
 function App() {
@@ -11,7 +11,7 @@ function App() {
     <Provider store={store}>
       <BrowserRouter>
         <Switch>
-          <Route path={START_TOURNAMENT}>
+          <Route path={NEW_TOURNAMENT}>
             <StartTournament />
           </Route>
           <Route path={TOURNAMENT}>

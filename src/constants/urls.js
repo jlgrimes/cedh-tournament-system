@@ -1,2 +1,2 @@
-export const START_TOURNAMENT = '/start-tournament';
+export const NEW_TOURNAMENT = '/new-tournament';
 export const TOURNAMENT = '/tournament';

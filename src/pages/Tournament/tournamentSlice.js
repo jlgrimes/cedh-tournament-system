@@ -4,13 +4,14 @@ import { getPairings } from '../../utils/pairing';
 export const tournamentSlice = createSlice({
   name: 'tournament',
   initialState: {
-    round: 1,
+    round: 0, // round = 0 indicates that the tournament has not started yet
     players: [],
     pairings: {}
   },
   reducers: {
     startTournament: (state, action) => {
-      state.pairings[state.round] = getPairings(action.payload);
+      state.round = 1;
+      state.pairings[1] = getPairings(action.payload);
     },
     loadPlayers: (state, action) => {
       state.players = action.payload;
