@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useSelector } from 'react-redux'
 import { Select, MenuItem, Paper, Grid, List, ListItem, ListItemText, ListItemSecondaryAction } from '@material-ui/core';
@@ -32,29 +32,34 @@ const Pairings = () => {
   const classes = useStyles();
 
   const currentPairings = useSelector(({ tournament }) => tournament.pairings[tournament.round]);
+  const currentRound = useSelector(({ tournament }) => tournament.round);
 
-  const [currentRoundPoints, setCurrentRoundPoints] = useState(currentPairings.map((pairing => pairing.map(_ => null))));
+  const [currentRoundPoints, setCurrentRoundPoints] = useState({});
   
-  const setPlayerCurrentRoundPoints = (pairingIdx, playerIdx, points) => {
-    let newRoundPoints = currentRoundPoints;
-    newRoundPoints[pairingIdx][playerIdx] = points;
-    setCurrentRoundPoints(newRoundPoints);
-  };
+  // Updates the current round points whenever the round changes
+  useEffect(() => {
+    setCurrentRoundPoints({});
+  }, [currentRound]);
+
+  const setPlayerCurrentRoundPoints = (player, points) => {
+    setCurrentRoundPoints({...currentRoundPoints, [player.id]: points});
+  }
 
   return (
     <Grid container spacing={2}>
-      {currentPairings.map((pairing, pairingIdx) => (
+      {currentPairings.map((pairing) => (
         <Grid item xs={6}>
           <Paper className={classes.paper}>
               <List>
-              {pairing.map((player, playerIdx) => (
+              {pairing.map((player) => (
                 <ListItem>
                   <ListItemText>
                     {player.name}
                   </ListItemText>
                   <ListItemSecondaryAction>
                     <Select
-                      onChange={(e) => setPlayerCurrentRoundPoints(pairingIdx, playerIdx, e.target.value)}
+                      onChange={(e) => setPlayerCurrentRoundPoints(player, e.target.value)}
+                      value={currentRoundPoints[player.id] ?? ''}
                     >
                       {POINT_VALUES.map(({ label, value }) => (
                         <MenuItem value={value}>{`${label} - ${value}`}</MenuItem>
