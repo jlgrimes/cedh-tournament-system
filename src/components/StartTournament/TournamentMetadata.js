@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Typography, IconButton, Dialog } from '@material-ui/core';
+import { Typography, IconButton, Dialog, DialogTitle } from '@material-ui/core';
 import SettingsIcon from '@material-ui/icons/Settings';
 
 import { TournamentSettingsForm } from '.';
@@ -17,6 +17,7 @@ const TournamentMetadata = () => {
         <SettingsIcon />
       </IconButton>
       <Dialog open={settingsOpen} onClose={() => setSettingsOpen(false)}>
+        <DialogTitle>Edit tournament information</DialogTitle>
         <TournamentSettingsForm onComplete={() => setSettingsOpen(false)} />
       </Dialog>
     </div>

@@ -8,7 +8,6 @@ import { getTotalPoints } from '../../utils/pairing';
 const StandingsIntoCut = () => {
   const players = useSelector((state) => state.tournament.players)
   const standings = orderBy(players, (player) => getTotalPoints(player), 'desc');
-  console.log(standings);
 
   return (
     <div>

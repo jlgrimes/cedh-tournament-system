@@ -1,0 +1,13 @@
+.tournament-settings {
+  justify-content: center;
+  display: flex;
+
+  .tournament-settings__form {
+    display: flex;
+    flex-direction: column;
+
+    .tournament-settings__input {
+      padding-bottom: 16px;
+    }
+  }
+}

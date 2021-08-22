@@ -6,7 +6,7 @@ export const tournamentSlice = createSlice({
   initialState: {
     metadata: {
       name: '',
-      numRounds: 0
+      numRounds: 1
     },
     // Which step of the tournament we're on. Step 0 is initial pairings, step 1 is standings, step 2 is final round pairings
     tournamentStep: 0,
