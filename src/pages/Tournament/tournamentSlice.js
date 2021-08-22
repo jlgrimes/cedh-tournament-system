@@ -4,17 +4,17 @@ import { getPairings, updatePlayerRoundData } from '../../utils/pairing';
 export const tournamentSlice = createSlice({
   name: 'tournament',
   initialState: {
-    name: '',
-    numRounds: 0, // total number of rounds
+    metadata: {
+      name: '',
+      numRounds: 0
+    },
     round: 0, // round = 0 indicates that the tournament has not started yet
     players: [],
     pairings: {}
   },
   reducers: {
     updateTournamentMetadata: (state, action) => {
-      const { name, numRounds } = action.payload;
-      state.name = name;
-      state.numRounds = numRounds;
+      state.metadata = action.payload;
     },
     startTournament: (state, action) => {
       state.round = 1;

@@ -1,47 +1,32 @@
 import React, { useState } from 'react';
-import uniqueId from 'lodash/uniqueId';
-import { Link } from 'react-router-dom';
-import { Button } from '@material-ui/core';
+import { Stepper, Step, StepLabel } from '@material-ui/core';
 
-import { PlayerImport, PlayerList, TournamentSettings } from '../../components/StartTournament';
-import { TOURNAMENT } from '../../constants/urls';
-
-import { useDispatch } from 'react-redux';
-import { startTournament } from '../Tournament/tournamentSlice';
+import { TournamentInformation, AddPlayers } from '../StartTournament';
 
 const StartTournament = () => {
-  const dispatch = useDispatch();
-  const [players, setPlayers] = useState([]);
+  const [activeStep, setActiveStep] = useState(0);
 
-  const addPlayer = (playerName) => {
-    const newPlayer = {
-      id: uniqueId(),
-      name: playerName
-    };
-
-    setPlayers([...players, newPlayer])
-  };
-
-  const removePlayer = (player) => {
-    setPlayers(players.filter(({ id }) => id !== player.id))
-  };
+  const TOURNAMENT_SETUP_STEPS = [
+    {
+      label: 'Tournament Information',
+      component: <TournamentInformation nextStep={() => setActiveStep(activeStep + 1)} />
+    },
+    {
+      label: 'Add Players',
+      component: <AddPlayers />
+    }
+  ];
 
   return (
     <div>
-      <PlayerImport addPlayer={addPlayer} />
-      <PlayerList {...{ players, removePlayer }} />
-      <TournamentSettings />
-      <Button
-        variant="contained"
-        color="primary"
-        component={Link}
-        to={TOURNAMENT}
-        onClick={() => {
-          dispatch(startTournament(players));
-        }}
-      >
-        Start Tournament
-      </Button>
+      <Stepper activeStep={activeStep}>
+        {TOURNAMENT_SETUP_STEPS.map((step, i) => (
+          <Step key={i}>
+            <StepLabel>{step.label}</StepLabel>
+          </Step>
+        ))}
+      </Stepper>
+      {TOURNAMENT_SETUP_STEPS[activeStep].component}
     </div>
   )
 };
