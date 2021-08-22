@@ -44,7 +44,7 @@ const Pairings = () => {
   return (
     <Grid container spacing={2}>
       {currentPairings.map((pairing, pairingIdx) => (
-        <Grid item>
+        <Grid item xs={3}>
           <Paper className={classes.paper}>
               <List>
               {pairing.map((player, playerIdx) => (
