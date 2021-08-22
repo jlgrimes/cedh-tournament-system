@@ -1,9 +1,9 @@
 import React from 'react';
-import { TournamentSettings } from '../../components/StartTournament';
+import { TournamentSettingsForm } from '../../components/StartTournament';
 
 const TournamentInformation = ({ nextStep }) => {
   return (
-    <TournamentSettings nextStep={nextStep} />
+    <TournamentSettingsForm nextStep={nextStep} />
   );
 };
 

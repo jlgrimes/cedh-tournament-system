@@ -3,7 +3,7 @@ import uniqueId from 'lodash/uniqueId';
 import { Link } from 'react-router-dom';
 import { Button } from '@material-ui/core';
 
-import { PlayerImport, PlayerList } from '../../components/StartTournament';
+import { PlayerImport, PlayerList, TournamentMetadata } from '../../components/StartTournament';
 import { TOURNAMENT } from '../../constants/urls';
 
 import { useDispatch } from 'react-redux';
@@ -28,6 +28,7 @@ const AddPlayers = () => {
 
   return (
     <div>
+      <TournamentMetadata />
       <PlayerImport addPlayer={addPlayer} />
       <PlayerList {...{ players, removePlayer }} />
       <Button
