@@ -66,27 +66,14 @@ export const getPairings = (players) => {
   const sortedPlayers = flattenPointRanks(pointRanksShuffled);
   const groupings = determineGroupings(sortedPlayers.length);
 
-  let indexInGrouping = 0, indexThroughoutGroupings = 0;
-
-  return sortedPlayers.reduce((acc, player) => {
-    if (indexInGrouping === groupings[indexThroughoutGroupings]) {
-      indexInGrouping = 0;
-      indexThroughoutGroupings += 1;
-
-      return [
-        ...acc,
-        [ player ]
-      ];
-    }
-
-    acc[indexThroughoutGroupings] = [
-      ...(acc[indexThroughoutGroupings] ?? []),
-      player
+  let runningSum = 0;
+  return groupings.reduce((acc, grouping) => {
+    const newAcc = [
+      ...acc,
+      sortedPlayers.slice(runningSum, runningSum + grouping)
     ];
-
-    indexInGrouping += 1;
-
-    return acc;
+    runningSum += grouping;
+    return newAcc;
   }, []);
 };
 

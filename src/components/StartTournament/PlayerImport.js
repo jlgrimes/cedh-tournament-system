@@ -5,6 +5,17 @@ const PlayerImport = ({ addPlayer }) => {
   const [inputVal, setInputVal] = useState('');
   const [showError, setShowError] = useState(false);
 
+  const handleSubmit = () => {
+    if (inputVal === '') {
+      setShowError(true);
+      return;
+    }
+
+    addPlayer(inputVal)
+    setInputVal('')
+    setShowError(false);
+  };
+
   return (
     <div className='player-import'>
       <TextField
@@ -16,21 +27,18 @@ const PlayerImport = ({ addPlayer }) => {
 
           setInputVal(e.target.value)
         }}
+        onKeyPress={(ev) => {
+          if (ev.key === 'Enter') {
+            handleSubmit();
+            ev.preventDefault();
+          }
+        }}
         value={inputVal}
         error={showError}
         helperText={showError && 'Please enter a name for player'}
       />
       <Button variant="contained" color="primary"
-          onClick={() => {
-          if (inputVal === '') {
-            setShowError(true);
-            return;
-          }
-
-          addPlayer(inputVal)
-          setInputVal('')
-          setShowError(false);
-        }}>
+          onClick={() => handleSubmit()}>
         Enter
       </Button>
     </div>
