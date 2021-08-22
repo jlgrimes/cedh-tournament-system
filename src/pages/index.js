@@ -1,3 +1,3 @@
-import StartTournament from './StartTournament';
+import StartTournament from './StartTournament/StartTournament';
 
 export { StartTournament };
