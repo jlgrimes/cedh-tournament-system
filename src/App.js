@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import { START_TOURNAMENT } from './constants/urls';
+import { START_TOURNAMENT, TOURNAMENT } from './constants/urls';
 
-import { StartTournament } from './pages';
+import { StartTournament, Tournament } from './pages';
 
 function App() {
   return (
@@ -10,6 +10,9 @@ function App() {
       <Switch>
         <Route path={START_TOURNAMENT}>
           <StartTournament />
+        </Route>
+        <Route path={TOURNAMENT}>
+          <Tournament />
         </Route>
       </Switch>
     </BrowserRouter>
