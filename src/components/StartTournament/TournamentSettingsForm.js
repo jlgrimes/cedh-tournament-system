@@ -4,7 +4,7 @@ import { TextField, Button } from '@material-ui/core';
 
 import { updateTournamentMetadata } from '../../pages/Tournament/tournamentSlice';
 
-const TournamentSettingsForm = ({ nextStep }) => {
+const TournamentSettingsForm = ({ onComplete }) => {
   const dispatch = useDispatch();
   const [tempData, setTempData] = useState({});
 
@@ -13,7 +13,7 @@ const TournamentSettingsForm = ({ nextStep }) => {
       <form onSubmit={(e) => {
         e.preventDefault();
         dispatch(updateTournamentMetadata(tempData))
-        nextStep();
+        onComplete();
       }}>
         <TextField onChange={(e) => setTempData({ ...tempData, name: e.target.value })} label="Tournament Name" variant="outlined" required />
         <TextField onChange={(e) => setTempData({ ...tempData, numRounds: e.target.value })} label="Number of Rounds" variant="outlined" type='number' required />

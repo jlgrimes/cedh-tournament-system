@@ -3,7 +3,7 @@ import { TournamentSettingsForm } from '../../components/StartTournament';
 
 const TournamentInformation = ({ nextStep }) => {
   return (
-    <TournamentSettingsForm nextStep={nextStep} />
+    <TournamentSettingsForm onComplete={nextStep} />
   );
 };
 
