@@ -10,7 +10,7 @@ const determineGroupingsUnshuffled = (num) => {
   // Number of 4 pairings that should be there
   const numberOfTables = Math.ceil(num / 4);
   // Number of tables we need to make 3 pairings
-  const numberOfThreePairings = 4 - num % 4;
+  const numberOfThreePairings = (4 - num % 4) % 4;
   // Return an array of 4s and 3s
   return [...Array(numberOfTables)].map((_, idx) => idx < numberOfThreePairings ? 3 : 4);
 };

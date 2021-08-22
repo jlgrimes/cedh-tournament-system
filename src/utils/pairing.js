@@ -1,6 +1,11 @@
 import shuffle from 'lodash/shuffle';
+import { determineGroupings } from './numbers';
 
 export const getTotalPoints = player => {
+  if (!player.rounds) {
+    return 0;
+  }
+
   return player.rounds.reduce((acc, curr) => acc + curr.points, 0);
 };
 
@@ -23,9 +28,34 @@ const getPointRanksShuffled = pointRanks => Object.entries(pointRanks).reduce((a
   };
 }, {});
 
-export const assignNextRoundPairings = (players, round) => {
+const flattenPointRanks = pointRanks => Object.values(pointRanks).reduce((acc, curr) => [acc, ...curr]);
+
+export const getPairings = (players) => {
   const pointRanks = getPointRanks(players);
   const pointRanksShuffled = getPointRanksShuffled(pointRanks);
+  const sortedPlayers = flattenPointRanks(pointRanksShuffled);
+  const groupings = determineGroupings(sortedPlayers.length);
 
-  console.log(pointRanksShuffled)
+  let indexInGrouping = 0, indexThroughoutGroupings = 0;
+
+  return sortedPlayers.reduce((acc, player) => {
+    if (indexInGrouping === groupings[indexThroughoutGroupings]) {
+      indexInGrouping = 0;
+      indexThroughoutGroupings += 1;
+
+      return [
+        ...acc,
+        [ player ]
+      ];
+    }
+
+    acc[indexThroughoutGroupings] = [
+      ...(acc[indexThroughoutGroupings] ?? []),
+      player
+    ];
+
+    indexInGrouping += 1;
+
+    return acc;
+  }, []);
 };

@@ -7,7 +7,7 @@ import { PlayerImport, PlayerList } from '../../components/StartTournament';
 import { TOURNAMENT } from '../../constants/urls';
 
 import { useDispatch } from 'react-redux';
-import { loadPlayers } from '../Tournament/tournamentSlice';
+import { startTournament } from '../Tournament/tournamentSlice';
 
 const StartTournament = () => {
   const dispatch = useDispatch();
@@ -35,7 +35,9 @@ const StartTournament = () => {
         color="primary"
         component={Link}
         to={TOURNAMENT}
-        onClick={() => dispatch(loadPlayers(players))}
+        onClick={() => {
+          dispatch(startTournament(players));
+        }}
       >
         Start Tournament
       </Button>
