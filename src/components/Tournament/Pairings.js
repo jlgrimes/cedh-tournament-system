@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useSelector, useDispatch } from 'react-redux';
-import { Button, Select, MenuItem, Paper, Grid, List, ListItem, ListItemText, ListItemSecondaryAction } from '@material-ui/core';
+import { Button, Select, MenuItem, Paper, Grid, List, ListItem, ListItemText, ListItemSecondaryAction, Typography } from '@material-ui/core';
 
 import { nextRound } from '../../pages/Tournament/tournamentSlice';
 import { POINT_VALUES } from '../../constants/pairings';
@@ -33,10 +33,13 @@ const Pairings = () => {
   return (
     <div>
       <Grid container spacing={2}>
-        {currentPairings.map((pairing) => (
+        {currentPairings.map((pairing, idx) => (
           <Grid item xs={6}>
             <Paper className={classes.paper}>
-                <List>
+            <Typography variant="h5" component="h2">
+              Table {idx + 1}
+            </Typography>
+              <List>
                 {pairing.map((player) => (
                   <ListItem>
                     <ListItemText>

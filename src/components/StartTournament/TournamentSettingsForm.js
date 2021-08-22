@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { TextField, Button } from '@material-ui/core';
 
 import { updateTournamentMetadata } from '../../pages/Tournament/tournamentSlice';
 
 const TournamentSettingsForm = ({ onComplete }) => {
   const dispatch = useDispatch();
-  const [tempData, setTempData] = useState({});
+  const { name, numRounds } = useSelector((state) => state.tournament.metadata);
+  console.log(name)
+
+  const [tempData, setTempData] = useState({ name, numRounds });
 
   return (
     <div>
@@ -15,8 +18,8 @@ const TournamentSettingsForm = ({ onComplete }) => {
         dispatch(updateTournamentMetadata(tempData))
         onComplete();
       }}>
-        <TextField onChange={(e) => setTempData({ ...tempData, name: e.target.value })} label="Tournament Name" variant="outlined" required />
-        <TextField onChange={(e) => setTempData({ ...tempData, numRounds: e.target.value })} label="Number of Rounds" variant="outlined" type='number' required />
+        <TextField value={tempData.name} onChange={(e) => setTempData({ ...tempData, name: e.target.value })} label="Tournament Name" variant="outlined" required />
+        <TextField value={tempData.numRounds} onChange={(e) => setTempData({ ...tempData, numRounds: e.target.value })} label="Number of Rounds" variant="outlined" type='number' required />
         <Button type="submit">Submit</Button>
       </form>
     </div>
