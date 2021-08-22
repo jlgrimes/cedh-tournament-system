@@ -4,31 +4,13 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Button, Select, MenuItem, Paper, Grid, List, ListItem, ListItemText, ListItemSecondaryAction } from '@material-ui/core';
 
 import { nextRound } from '../../pages/Tournament/tournamentSlice';
+import { POINT_VALUES } from '../../constants/pairings';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
     padding: 16
   }
 }));
-
-const POINT_VALUES = [
-  {
-    label: 'Win',
-    value: 3
-  },
-  {
-    label: 'Second',
-    value: 2
-  },
-  {
-    label: 'Third/Draw',
-    value: 1
-  },
-  {
-    label: 'Fourth',
-    value: 0
-  }
-];
 
 const Pairings = () => {
   const classes = useStyles();
@@ -77,7 +59,13 @@ const Pairings = () => {
           </Grid>
         ))}
       </Grid>
-      <Button onClick={() => dispatch(nextRound(currentRoundPoints))}>Next Round</Button>
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={() => dispatch(nextRound(currentRoundPoints))}
+      >
+        Next Round
+      </Button>
     </div>
 
   )
