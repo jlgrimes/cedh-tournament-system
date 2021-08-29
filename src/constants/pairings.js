@@ -5,7 +5,7 @@ export const POINT_VALUES = [
   },
   {
     label: 'Second',
-    value: 2
+    value: 1
   },
   {
     label: 'Third/Draw',
