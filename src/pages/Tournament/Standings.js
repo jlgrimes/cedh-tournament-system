@@ -40,9 +40,13 @@ const Standings = ({ endOfTournament }) => {
             <ListItemText>
               {`${player.name} - ${getTotalPoints(player)} points`}
             </ListItemText>
-            <ListItemText>
-              {`${getTotalPoints(player)} points, opponent resistance = ${getResistance(player)}`}
-            </ListItemText>
+            {
+              !endOfTournament && (
+                <ListItemText>
+                  {`${getTotalPoints(player)} points, opponent resistance = ${getResistance(player)}`}
+                </ListItemText>
+              )
+            }
           </ListItem>
         ))}
       </List>

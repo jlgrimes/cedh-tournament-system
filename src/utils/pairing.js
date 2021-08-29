@@ -112,7 +112,7 @@ export const getCurrentRoundResistance = (player, currentRoundPoints, currentPai
  * @param {*} currentPairings 
  * @returns 
  */
-export const updatePlayerRoundData = (players, currentRoundPoints, roundNumber, currentPairings) => {
+export const updatePlayerRoundData = (players, currentRoundPoints, roundNumber, currentPairings, finalRound) => {
   return players.map((player) => ({
     ...player,
     rounds: [
@@ -120,7 +120,7 @@ export const updatePlayerRoundData = (players, currentRoundPoints, roundNumber, 
       {
         id: roundNumber,
         points: currentRoundPoints[player.id],
-        resistance: getCurrentRoundResistance(player, currentRoundPoints, currentPairings)
+        resistance: finalRound ? null : getCurrentRoundResistance(player, currentRoundPoints, currentPairings)
       }
     ]
   }));
@@ -142,5 +142,5 @@ export const getStandings = (players) => {
  * @returns 
  */
 export const getFinalRoundPairings = (players) => {
-  return [players.slice(0, 4)];
+  return [getStandings(players).slice(0, 4)];
 };

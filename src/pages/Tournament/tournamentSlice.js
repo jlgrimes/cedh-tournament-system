@@ -27,9 +27,9 @@ export const tournamentSlice = createSlice({
       state.players = action.payload;
     },
     nextRound: (state, action) => {
+      const finalRound = state.tournamentStep === 3;
       // Update players with the round results
-      state.players = updatePlayerRoundData(state.players, action.payload, state.round, state.pairings[state.round]);
-      console.log(state.players);
+      state.players = updatePlayerRoundData(state.players, action.payload, state.round, state.pairings[state.round], finalRound);
       // Increment round number by 1
       state.round += 1;
 
