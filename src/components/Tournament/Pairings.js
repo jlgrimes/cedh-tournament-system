@@ -12,11 +12,16 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const NextRoundButton = ({ currentRoundPoints }) => {
+const NextRoundButton = ({ currentRoundPoints, isFinalRound }) => {
   const dispatch = useDispatch();
   const numberOfPlayers = useSelector(({ tournament }) => tournament.players.length)
 
   const notAllPointsSet = () => {
+    // If it's the final round, we check against 4
+    if (isFinalRound) {
+      return Object.keys(currentRoundPoints).length !== 4;
+    }
+
     return Object.keys(currentRoundPoints).length !== numberOfPlayers;
   };
 
@@ -48,7 +53,7 @@ const NextRoundButton = ({ currentRoundPoints }) => {
   )
 }
 
-const Pairings = () => {
+const Pairings = ({ isFinalRound }) => {
   const classes = useStyles();
 
   const currentPairings = useSelector(({ tournament }) => tournament.pairings[tournament.round]);
@@ -97,7 +102,7 @@ const Pairings = () => {
           </Grid>
         ))}
       </Grid>
-      <NextRoundButton currentRoundPoints={currentRoundPoints} />
+      <NextRoundButton isFinalRound={isFinalRound} currentRoundPoints={currentRoundPoints} />
     </div>
 
   )

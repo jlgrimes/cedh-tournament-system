@@ -2,7 +2,7 @@ import React from 'react';
 import { List, ListItem, ListItemText, Button } from '@material-ui/core';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { getTotalPoints, getStandings } from '../../utils/pairing';
+import { getTotalPoints, getStandings, getResistance } from '../../utils/pairing';
 import { startFinalRound } from './tournamentSlice';
 
 const StartFinalRoundButton = () => {
@@ -39,6 +39,9 @@ const Standings = ({ endOfTournament }) => {
           <ListItem>
             <ListItemText>
               {`${player.name} - ${getTotalPoints(player)} points`}
+            </ListItemText>
+            <ListItemText>
+              {`${getTotalPoints(player)} points, opponent resistance = ${getResistance(player)}`}
             </ListItemText>
           </ListItem>
         ))}

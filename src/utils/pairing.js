@@ -16,6 +16,18 @@ export const getTotalPoints = player => {
   return player.rounds.reduce((acc, curr) => acc + curr.points, 0);
 };
 
+export const getResistance = player => {
+  if (!player.rounds) {
+    return 0;
+  }
+
+  return player.rounds.reduce((acc, curr) => acc + curr.resistance, 0);
+};
+
+export const getTotalPointsWithResistance = player => {
+  return getTotalPoints(player) + getResistance(player);
+};
+
 /**
  * Generates the point rank object for all players
  * 
@@ -78,12 +90,6 @@ export const getPairings = (players) => {
   }, []);
 };
 
-// export const getPlayerResistance = (player, players) => {
-//   return player.rounds.reduce((acc, round), () => {
-
-//   });
-// };
-
 export const getCurrentRoundResistance = (player, currentRoundPoints, currentPairings) => {
   const playerBracket = currentPairings.find((bracket) => bracket.some((bracketPlayer) => player.id === bracketPlayer.id));
 
@@ -94,7 +100,7 @@ export const getCurrentRoundResistance = (player, currentRoundPoints, currentPai
     }
 
     return acc + currentRoundPoints[opponent.id];
-  }, 0);
+  }, 0) / (playerBracket.length - 1); // Average the resistance for the round
 };
 
 /**
@@ -126,7 +132,7 @@ export const updatePlayerRoundData = (players, currentRoundPoints, roundNumber, 
  * @returns 
  */
 export const getStandings = (players) => {
-  return orderBy(players, (player) => getTotalPoints(player), 'desc')
+  return orderBy(players, (player) => getTotalPointsWithResistance(player), 'desc')
 };
 
 /**

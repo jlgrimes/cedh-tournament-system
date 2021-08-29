@@ -13,7 +13,7 @@ const PairingsView = ({ isFinalRound }) => {
     <div>
       <Typography variant='h2'>{name}</Typography>
       <Typography variant='h4'>{getRoundText()}</Typography>
-      <Pairings />
+      <Pairings isFinalRound={isFinalRound} />
     </div>
   );
 };
