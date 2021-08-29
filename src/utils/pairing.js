@@ -1,4 +1,5 @@
 import shuffle from 'lodash/shuffle';
+import orderBy from 'lodash/orderBy';
 import { determineGroupings } from './numbers';
 
 /**
@@ -96,4 +97,23 @@ export const updatePlayerRoundData = (players, currentRoundPoints, roundNumber) 
       }
     ]
   }));
+};
+
+/**
+ * Gets sorted standings
+ * @param {*} players 
+ * @returns 
+ */
+export const getStandings = (players) => {
+  return orderBy(players, (player) => getTotalPoints(player), 'desc')
+};
+
+/**
+ * Gets pairings for the final round
+ * 
+ * @param {*} players 
+ * @returns 
+ */
+export const getFinalRoundPairings = (players) => {
+  return [players.slice(0, 4)];
 };

@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import { NEW_TOURNAMENT } from '../../constants/urls';
-import { PairingsView, StandingsIntoCut } from '.';
+import { PairingsView, Standings } from '.';
 
 const Tournament = () => {
   const { round, tournamentStep } = useSelector((state) => state.tournament);
@@ -13,10 +13,13 @@ const Tournament = () => {
       component: <PairingsView />
     },
     {
-      component: <StandingsIntoCut />
+      component: <Standings />
     },
     {
       component: <PairingsView isFinalRound />
+    },
+    {
+      component: <Standings endOfTournament />
     }
   ];
 

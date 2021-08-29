@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { getPairings, updatePlayerRoundData } from '../../utils/pairing';
+import { getPairings, updatePlayerRoundData, getFinalRoundPairings } from '../../utils/pairing';
 
 export const tournamentSlice = createSlice({
   name: 'tournament',
@@ -33,18 +33,28 @@ export const tournamentSlice = createSlice({
       state.round += 1;
 
       // If we've hit the last round, go to next tournament step
+      // Or if we're at the last round, go to the final standings
       if (state.round > state.metadata.numRounds) {
-        state.tournamentStep = 1;
+        state.tournamentStep += 1;
         return;
       }
 
       // Generates the next round pairings
       state.pairings[state.round] = getPairings(state.players);
     },
+    startFinalRound: (state) => {
+      // Get the final round pairings
+      state.pairings[state.round] = getFinalRoundPairings(state.players);
+      // Sets the tournament step to 2, which is showing the final round pairings
+      state.tournamentStep = 2;
+    },
+    endTournament: (state) => {
+
+    }
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { loadPlayers, nextRound, startTournament, updateTournamentMetadata } = tournamentSlice.actions;
+export const { loadPlayers, nextRound, startTournament, updateTournamentMetadata, startFinalRound } = tournamentSlice.actions;
 
 export default tournamentSlice.reducer;

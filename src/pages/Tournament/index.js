@@ -1,4 +1,4 @@
-import StandingsIntoCut from "./StandingsIntoCut";
+import Standings from "./Standings";
 import PairingsView from "./PairingsView";
 
-export { StandingsIntoCut, PairingsView };
+export { Standings, PairingsView };
