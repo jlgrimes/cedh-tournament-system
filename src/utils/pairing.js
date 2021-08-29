@@ -78,22 +78,43 @@ export const getPairings = (players) => {
   }, []);
 };
 
+// export const getPlayerResistance = (player, players) => {
+//   return player.rounds.reduce((acc, round), () => {
+
+//   });
+// };
+
+export const getCurrentRoundResistance = (player, currentRoundPoints, currentPairings) => {
+  const playerBracket = currentPairings.find((bracket) => bracket.some((bracketPlayer) => player.id === bracketPlayer.id));
+
+  return playerBracket.reduce((acc, opponent) => {
+    // Don't account current player's points in calculation
+    if (opponent.id === player.id) {
+      return acc;
+    }
+
+    return acc + currentRoundPoints[opponent.id];
+  }, 0);
+};
+
 /**
  * Updates the player's round data with points they've recieved after the round
  * 
  * @param {*} players 
  * @param {*} currentRoundPoints 
  * @param {*} roundNumber 
+ * @param {*} currentPairings 
  * @returns 
  */
-export const updatePlayerRoundData = (players, currentRoundPoints, roundNumber) => {
+export const updatePlayerRoundData = (players, currentRoundPoints, roundNumber, currentPairings) => {
   return players.map((player) => ({
     ...player,
     rounds: [
       ...(player.rounds ?? []),
       {
         id: roundNumber,
-        points: currentRoundPoints[player.id]
+        points: currentRoundPoints[player.id],
+        resistance: getCurrentRoundResistance(player, currentRoundPoints, currentPairings)
       }
     ]
   }));

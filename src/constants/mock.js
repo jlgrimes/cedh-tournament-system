@@ -6,11 +6,13 @@ export const MOCK_DATA = {
       rounds: [
         {
           id: 1,
-          points: 3
+          points: 3,
+          resistance: 6
         },
         {
           id: 2,
-          points: 3
+          points: 3,
+          resistance: 6
         }
       ]
     },
@@ -20,11 +22,13 @@ export const MOCK_DATA = {
       rounds: [
         {
           id: 1,
-          points: 0
+          points: 0,
+          resistance: 6
         },
         {
           id: 2,
-          points: 0
+          points: 0,
+          resistance: 6
         }
       ]
     },
@@ -34,11 +38,13 @@ export const MOCK_DATA = {
       rounds: [
         {
           id: 1,
-          points: 3
+          points: 3,
+          resistance: 6
         },
         {
           id: 2,
-          points: 3
+          points: 3,
+          resistance: 6
         }
       ]
     }
