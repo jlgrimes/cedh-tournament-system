@@ -4,11 +4,7 @@ export const POINT_VALUES = [
     value: 3
   },
   {
-    label: 'Second',
-    value: 1
-  },
-  {
-    label: 'Third/Draw',
+    label: 'Second/Third/Draw',
     value: 1
   },
   {
